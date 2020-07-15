@@ -27,27 +27,23 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
     }
 
-    private void FixedUpdate()
+   
+
+    // Update is called once per frame
+    void Update()
     {
-       
         if (_playerPrefab != null)
         {
             RotatePlayer();
             PlayerWalk();
             PlayerRun();
-            
+
 
         }
         else
         {
             Debug.Log("Player is null!");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
     }
 
     //method for rotating the player
@@ -92,28 +88,15 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             _animations.PlayerStopRunningAnimation();
+            _animations.IdleAnimation();
         }
 
-        //stop running
-        //PlayerStopRunningTransition();
-
-       
-    }
-
-    //method for stop running transition
-    private void PlayerStopRunningTransition()
-    {
         
-        if (Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Vector3 stopMoving = transform.TransformDirection(Vector3.zero);
-            _animations.PlayerStopRunningAnimation();
-            _animations.PlayerStopWalkingAnimation();
-            
-            
-        }
+
        
     }
+
+    
            
     
 
