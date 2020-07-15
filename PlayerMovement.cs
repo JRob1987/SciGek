@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _movementSpeed = 1.0f;
     [SerializeField] private float _rotateSpeed = 1.0f;
     [SerializeField] private float _runningSpeed = 1.0f;
+    [SerializeField] private GameObject _smokeEffect;
+    [SerializeField] private float _radius = 0.3f;
 
     private CharacterController _playerController;
     private PlayerAnimations _animations;
@@ -83,12 +85,14 @@ public class PlayerMovement : MonoBehaviour
             Vector3 runningMovement = transform.TransformDirection(Vector3.forward * _runningSpeed);
             _animations.WalkToRun();
             _animations.PlayerRunAnimation();
+            _smokeEffect.SetActive(true);
             _playerController.SimpleMove(runningMovement);
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             _animations.PlayerStopRunningAnimation();
             _animations.IdleAnimation();
+            _smokeEffect.SetActive(false);
         }
 
         
