@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rotateSpeed = 1.0f;
     [SerializeField] private float _runningSpeed = 1.0f;
     [SerializeField] private GameObject _smokeEffect;
-    [SerializeField] private float _radius = 0.3f;
+   // [SerializeField] private float _radius = 0.3f;
 
     private CharacterController _playerController;
     private PlayerAnimations _animations;
