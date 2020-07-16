@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.LowLevel;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rotateSpeed = 1.0f;
     [SerializeField] private float _runningSpeed = 1.0f;
     [SerializeField] private GameObject _smokeEffect;
-   // [SerializeField] private float _radius = 0.3f;
+    [SerializeField] private float _jumpSpeed = 5.0f;
+    [SerializeField] private float _gravity = 15.0f;
 
     private CharacterController _playerController;
     private PlayerAnimations _animations;
+    private Vector3 _jumpDirection = Vector3.zero;
    
 
     private void Awake()
@@ -39,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
             RotatePlayer();
             PlayerWalk();
             PlayerRun();
+            PlayerJump();
 
 
         }
@@ -98,6 +102,30 @@ public class PlayerMovement : MonoBehaviour
         
 
        
+    }
+    //player jumping method
+    private void PlayerJump()
+    {
+        if(_playerController.isGrounded && Input.GetKey(KeyCode.Space))
+        {
+            _animations.PlayerStopWalkingAnimation();
+            _animations.JumpAnimation();
+            _jumpDirection.y = _jumpSpeed;
+           
+        }
+        _jumpDirection.y -= _gravity * Time.deltaTime;
+        _playerController.Move(_jumpDirection * Time.deltaTime);
+
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            _animations.LandAnimation();
+        }
+        else if(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.Space))
+        {
+            _animations.PlayerStopWalkingAnimation();
+            _animations.JumpAnimation();
+            
+        }
     }
 
     
